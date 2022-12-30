@@ -1,4 +1,4 @@
-const {inquirerMenu, pause, readInput, listTasksToDelete, confirm} = require('./helpers/inquirer');
+const {inquirerMenu, pause, readInput, listTasksToDelete, confirm, listTasksToDoIt} = require('./helpers/inquirer');
 const {savedb, readb} = require('./helpers/savefiles');
 const Tasks = require('./models/tasks');
 
@@ -38,7 +38,10 @@ const main = async() => {
             case 4: //to show pending tasks
                 tasks.showcategory(false);
             break;
-            case 5: //to show both finished and pending tasks
+            case 5: //to complete task
+                const checkids = await listTasksToDoIt(tasks.tolist);
+                tasks.updateStatus(checkids);
+                pause();
 
             break;
             case 6: //to delete task

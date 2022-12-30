@@ -76,6 +76,21 @@ class Tasks{
         };
     };
 
+    updateStatus = (idlist = []) =>{
+        idlist.forEach(id =>{
+            const task = this._list[id];
+            if(!task.finished){
+                task.finished = new Date().toISOString()
+            }
+        })
+        
+        this._list[id].forEach(task => {
+            if(!idlist.includes(task.id)){
+                this._list[task.id].finished = null;
+            }
+        })
+    }
+
 }
 
 module.exports = Tasks;

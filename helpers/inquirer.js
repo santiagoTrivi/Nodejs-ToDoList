@@ -131,12 +131,44 @@ const confirm = async() => {
     return answer;
 }
 
+const listTasksToDoIt = async ( taskpart =[]) =>{
+    
+    const choicesFromList = taskpart.map((task, i) => {
+        const index = i +1;
+
+        return {
+            value: task.id,
+            name: `${index}. ${task.desc}`,
+            checked:  (taskpart.finished) ? true : false
+        }
+    });
+
+    //choicesFromList.unshift({
+       // value: '0',
+        //name: `0. cancelar`
+    //});
+
+    const questions4 = [
+        {
+            type: 'checkbox',
+            name: 'ids',
+            message: 'Choise',
+            choices: choicesFromList
+        }
+    ]
+
+    const {ids} = await inquirer.prompt(questions4);
+    return ids;
+    
+}
+
 module.exports = {
 
     inquirerMenu,
     pause,
     readInput,
     listTasksToDelete,
-    confirm
+    confirm,
+    listTasksToDoIt
 
 };
